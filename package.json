@@ -1,5 +1,5 @@
 {
-  "homepage": "http://jungbumwoo.github.io/insiderstock-frontend/",
+  "homepage": "http://jungbumwoo.github.io/",
   "name": "front",
   "version": "0.1.0",
   "private": true,
@@ -31,14 +31,13 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-
     "predeploy": "yarn build",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"  
+      "react-app/jest"
     ]
   },
   "browserslist": {

@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/insiderstock-frontend/static/css/main.5a626d72.chunk.css",
-    "main.js": "/insiderstock-frontend/static/js/main.d73715ac.chunk.js",
-    "main.js.map": "/insiderstock-frontend/static/js/main.d73715ac.chunk.js.map",
+    "main.js": "/insiderstock-frontend/static/js/main.c4868110.chunk.js",
+    "main.js.map": "/insiderstock-frontend/static/js/main.c4868110.chunk.js.map",
     "runtime-main.js": "/insiderstock-frontend/static/js/runtime-main.0f606e64.js",
     "runtime-main.js.map": "/insiderstock-frontend/static/js/runtime-main.0f606e64.js.map",
     "static/js/2.aff1ef8d.chunk.js": "/insiderstock-frontend/static/js/2.aff1ef8d.chunk.js",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.0f606e64.js",
     "static/js/2.aff1ef8d.chunk.js",
     "static/css/main.5a626d72.chunk.css",
-    "static/js/main.d73715ac.chunk.js"
+    "static/js/main.c4868110.chunk.js"
   ]
 }

@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/static/css/main.5a626d72.chunk.css",
-    "main.js": "/static/js/main.c4868110.chunk.js",
-    "main.js.map": "/static/js/main.c4868110.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.0bea4c43.js",
-    "runtime-main.js.map": "/static/js/runtime-main.0bea4c43.js.map",
-    "static/js/2.fc22ec35.chunk.js": "/static/js/2.fc22ec35.chunk.js",
-    "static/js/2.fc22ec35.chunk.js.map": "/static/js/2.fc22ec35.chunk.js.map",
-    "static/js/3.148315cb.chunk.js": "/static/js/3.148315cb.chunk.js",
-    "static/js/3.148315cb.chunk.js.map": "/static/js/3.148315cb.chunk.js.map",
-    "index.html": "/index.html",
-    "static/css/main.5a626d72.chunk.css.map": "/static/css/main.5a626d72.chunk.css.map",
-    "static/js/2.fc22ec35.chunk.js.LICENSE.txt": "/static/js/2.fc22ec35.chunk.js.LICENSE.txt",
-    "static/media/x-mark.ae506d6c.svg": "/static/media/x-mark.ae506d6c.svg"
+    "main.css": "/insiderstock-frontend/static/css/main.5a626d72.chunk.css",
+    "main.js": "/insiderstock-frontend/static/js/main.d73715ac.chunk.js",
+    "main.js.map": "/insiderstock-frontend/static/js/main.d73715ac.chunk.js.map",
+    "runtime-main.js": "/insiderstock-frontend/static/js/runtime-main.0f606e64.js",
+    "runtime-main.js.map": "/insiderstock-frontend/static/js/runtime-main.0f606e64.js.map",
+    "static/js/2.aff1ef8d.chunk.js": "/insiderstock-frontend/static/js/2.aff1ef8d.chunk.js",
+    "static/js/2.aff1ef8d.chunk.js.map": "/insiderstock-frontend/static/js/2.aff1ef8d.chunk.js.map",
+    "static/js/3.148315cb.chunk.js": "/insiderstock-frontend/static/js/3.148315cb.chunk.js",
+    "static/js/3.148315cb.chunk.js.map": "/insiderstock-frontend/static/js/3.148315cb.chunk.js.map",
+    "index.html": "/insiderstock-frontend/index.html",
+    "static/css/main.5a626d72.chunk.css.map": "/insiderstock-frontend/static/css/main.5a626d72.chunk.css.map",
+    "static/js/2.aff1ef8d.chunk.js.LICENSE.txt": "/insiderstock-frontend/static/js/2.aff1ef8d.chunk.js.LICENSE.txt",
+    "static/media/x-mark.ae506d6c.svg": "/insiderstock-frontend/static/media/x-mark.ae506d6c.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.0bea4c43.js",
-    "static/js/2.fc22ec35.chunk.js",
+    "static/js/runtime-main.0f606e64.js",
+    "static/js/2.aff1ef8d.chunk.js",
     "static/css/main.5a626d72.chunk.css",
-    "static/js/main.c4868110.chunk.js"
+    "static/js/main.d73715ac.chunk.js"
   ]
 }

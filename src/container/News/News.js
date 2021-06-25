@@ -182,9 +182,29 @@ const News = (props) => {
     };
 
     const handleBanBtn = () => {
-        let checkedStock = pageOfItems.filter(item => checkedArray.includes(pageOfItems.indexOf(item)));
-        dispatch(addBanAction(checkedStock));
-        setCheckedArray([]);
+        let getToken = localStorage.getItem('token');
+        if (checkedArray.length === 0) {
+            // should click at least one
+            setModalTitle('10일벤이란?');
+            setModalContent1('-	10일벤목록은 10일 동안만 해당 주식에 관한 매수/매도 소식을 차단합니다. 노관심목록은 목록에 담긴 종목에 관한 소식을 영구적으로 차단하는 것과 달리 10일 이후에는 다시 조회됩니다.');
+            setModalContent2('-	10일벤 목록에 담긴 종목은 10일 이후에는 자동적으로 삭제됩니다.');
+            setModalAlert('하나 이상의 항목을 클릭(선택)하여야합니다.');
+            setModalMessageShow(true);
+        } else if (!getToken) {
+            // you need to Login
+            setModalTitle('10일벤이란?');
+            setModalContent1('-	10일벤목록은 10일 동안만 해당 주식에 관한 매수/매도 소식을 차단합니다. 노관심목록은 목록에 담긴 종목에 관한 소식을 영구적으로 차단하는 것과 달리 10일 이후에는 다시 조회됩니다.');
+            setModalContent2('-	10일벤 목록에 담긴 종목은 10일 이후에는 자동적으로 삭제됩니다.');
+            setModalAlert('로그인이 필요합니다.');
+            setModalSigninLink('SignIn');
+            setModalSignupLink('SignUp');
+            setModalMessageShow(true);
+        } else {
+            let checkedStock = pageOfItems.filter(item => checkedArray.includes(pageOfItems.indexOf(item)));
+            dispatch(addBanAction(checkedStock));
+            setCheckedArray([]);
+        }
+
     };
 
     const onModalInputChange = (e) => {

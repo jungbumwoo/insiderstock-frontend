@@ -71,13 +71,6 @@ const Signin = () => {
         <>  
             <Layout />
             <div className="signin-container">
-                {/* <a href="http://localhost:2000/api/auth/facebook">
-                    facebook Login
-                </a>
-
-                <a href="http://localhost:2000/api/oauth">
-                    <button>kakao Login</button>
-                </a> */}
                 <button type="button" id="kakao-login-btn"></button>
             </div>
         </>

@@ -225,10 +225,11 @@ const News = (props) => {
     }
 
     const handleWhatis = () => {
+        console.log("handleWhatis Clickend");
+        setModalMessageShow(true);
         setModalTitle('Insider Trading 이란?');
         setModalContent1('해당 기업에서 직무 또는 지위를 맡은 사람이 소속 회사의 주식을 거래하는 것을 말합니다.');
         setModalContent2('본인 회사의 주식을 매도하는 경우는 다양한 이유가 있지만 매매하는 경우는 주로 주식 가치 상승을 예상하기 때문입니다. 이에 Insider 들이 내부 주식을 매수하는 정보를 모았습니다.');
-        setModalContent1('해당 기업에서 직무 또는 지위를 맡은 사람이 소속 회사의 주식을 거래하는 것을 말합니다. 본인 회사의 주식을 매도하는 경우는 다양한 이유가 있지만 매매하는 경우는 주로 주식 가치 상승을 예상하기 때문입니다. 이에 Insider 들이 내부 주식을 매수하는 정보를 모았습니다.');
     }
 
     const handleMessageClose = () => {
@@ -243,7 +244,10 @@ const News = (props) => {
 
     return(
         <div className="newsContainer">
-            <span onClick={handleWhatis} className="subtitle">insider Tranding이란?</span>
+            <div className="mainquestion" onClick={handleWhatis}>
+                <span className="subtitle">insider Tranding이란</span>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/1/11/Blue_question_mark_icon.svg" alt="" />
+            </div>
             <table>
                 <thead>
                     <tr>

@@ -1,23 +1,32 @@
 .newsContainer {
-    padding-top: 5.5em;
+    padding-top: 4.8em;
+}
+
+.newsContainer .mainquestion {
+    display: flex;
+    justify-content: flex-end;
+    width: 40%;
+    margin-left: 60%;
 }
 
 .newsContainer .subtitle {
-    display: inline-block;
-    color: #0052ff;
-    font-size: 1rem;
-    padding: 0.4em ;
-}
-
-.newsContainer .subtitle {
-    display: inline-block;
-    width: 100%;
+    /* width: 100%; */
     text-align: right;
     color: #0052ff;
-    font-size: 1rem;
+    font-size: 0.8rem;
     padding: 0.4em ;
 }
 
+.newsContainer .mainquestion img {
+    width: 0.8rem;
+    height: 0.8rem;
+    margin-right: 0.6em;
+    margin-left: -0.1em;
+    align-content: space-around;
+    margin-top: 0.3em;
+}
+
+/* Table */
 .newsContainer table {
     width: 100%;
     border-collapse: collapse;
@@ -65,7 +74,7 @@
 
 .buttons button {
     border: none;
-    font-size: 1.2rem;
+    font-size: 1rem;
     margin-left: 0.4em;
     padding: 0.5em 0.5em;
     border-radius: 0.2rem;
@@ -141,7 +150,7 @@
 .pageNum ul li a{
     padding: 0.6em 1em;
     text-decoration: none;
-    font-size: 1.2em;
+    font-size: 1em;
     border: 1px solid #ccc;
 }
 

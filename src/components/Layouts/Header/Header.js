@@ -64,8 +64,8 @@ const Header = () => {
     //         </div>
     //     </>
     // )
-    const isClicked = (e) => {
-        console.log(e.target);
+    const isClicked = () => {
+        document.getElementById("menu-btn").checked = false;
     }
 
     return (
@@ -73,12 +73,13 @@ const Header = () => {
             <div className="header">
                 <div className="header-container">
                     <a id="htitle" href="/">insider</a>
-                    <input onClick={isClicked} id="menu-btn" type="checkbox"/>
+                    <input id="menu-btn" type="checkbox"/>
                     <label className="menu-icon" for="menu-btn">
                         <span></span>
                         <span></span>
                         <span></span>
                     </label>
+                    <div onClick={isClicked} className="modal-darkside"></div>
                     <div className="menuToggle">
                         <ul className="menu-ul">
                             <a href="/onboard">담은목록</a>

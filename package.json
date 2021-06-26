@@ -1,5 +1,8 @@
 {
+<<<<<<< HEAD
   "homepage": "http://jungbumwoo.github.io/insiderstock-frontend/",
+=======
+>>>>>>> 67e5d6af185f7a4de1d79533aa7f0958cc10aca0
   "name": "front",
   "version": "0.1.0",
   "private": true,
@@ -10,7 +13,6 @@
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
     "dotenv": "^8.2.0",
-    "gh-pages": "^3.2.3",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-bootstrap": "^1.5.2",
@@ -30,9 +32,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "predeploy": "yarn build",
-    "deploy": "gh-pages -d build"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [

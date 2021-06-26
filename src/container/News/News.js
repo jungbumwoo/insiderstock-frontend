@@ -182,9 +182,29 @@ const News = (props) => {
     };
 
     const handleBanBtn = () => {
-        let checkedStock = pageOfItems.filter(item => checkedArray.includes(pageOfItems.indexOf(item)));
-        dispatch(addBanAction(checkedStock));
-        setCheckedArray([]);
+        let getToken = localStorage.getItem('token');
+        if (checkedArray.length === 0) {
+            // should click at least one
+            setModalTitle('10일벤이란?');
+            setModalContent1('-	10일벤목록은 10일 동안만 해당 주식에 관한 매수/매도 소식을 차단합니다. 노관심목록은 목록에 담긴 종목에 관한 소식을 영구적으로 차단하는 것과 달리 10일 이후에는 다시 조회됩니다.');
+            setModalContent2('-	10일벤 목록에 담긴 종목은 10일 이후에는 자동적으로 삭제됩니다.');
+            setModalAlert('하나 이상의 항목을 클릭(선택)하여야합니다.');
+            setModalMessageShow(true);
+        } else if (!getToken) {
+            // you need to Login
+            setModalTitle('10일벤이란?');
+            setModalContent1('-	10일벤목록은 10일 동안만 해당 주식에 관한 매수/매도 소식을 차단합니다. 노관심목록은 목록에 담긴 종목에 관한 소식을 영구적으로 차단하는 것과 달리 10일 이후에는 다시 조회됩니다.');
+            setModalContent2('-	10일벤 목록에 담긴 종목은 10일 이후에는 자동적으로 삭제됩니다.');
+            setModalAlert('로그인이 필요합니다.');
+            setModalSigninLink('SignIn');
+            setModalSignupLink('SignUp');
+            setModalMessageShow(true);
+        } else {
+            let checkedStock = pageOfItems.filter(item => checkedArray.includes(pageOfItems.indexOf(item)));
+            dispatch(addBanAction(checkedStock));
+            setCheckedArray([]);
+        }
+
     };
 
     const onModalInputChange = (e) => {
@@ -225,10 +245,11 @@ const News = (props) => {
     }
 
     const handleWhatis = () => {
+        console.log("handleWhatis Clickend");
+        setModalMessageShow(true);
         setModalTitle('Insider Trading 이란?');
         setModalContent1('해당 기업에서 직무 또는 지위를 맡은 사람이 소속 회사의 주식을 거래하는 것을 말합니다.');
         setModalContent2('본인 회사의 주식을 매도하는 경우는 다양한 이유가 있지만 매매하는 경우는 주로 주식 가치 상승을 예상하기 때문입니다. 이에 Insider 들이 내부 주식을 매수하는 정보를 모았습니다.');
-        setModalContent1('해당 기업에서 직무 또는 지위를 맡은 사람이 소속 회사의 주식을 거래하는 것을 말합니다. 본인 회사의 주식을 매도하는 경우는 다양한 이유가 있지만 매매하는 경우는 주로 주식 가치 상승을 예상하기 때문입니다. 이에 Insider 들이 내부 주식을 매수하는 정보를 모았습니다.');
     }
 
     const handleMessageClose = () => {
@@ -243,7 +264,10 @@ const News = (props) => {
 
     return(
         <div className="newsContainer">
-            <span onClick={handleWhatis} className="subtitle">insider Tranding이란?</span>
+            <div className="mainquestion" onClick={handleWhatis}>
+                <span className="subtitle">insider Tranding이란</span>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/1/11/Blue_question_mark_icon.svg" alt="" />
+            </div>
             <table>
                 <thead>
                     <tr>

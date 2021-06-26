@@ -14,7 +14,7 @@ window.store = store;
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router basename="/">
+    <Router>
       <React.StrictMode>
         <GlobalStyles />
           <App />

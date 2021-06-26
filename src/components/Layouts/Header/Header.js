@@ -1,7 +1,9 @@
 import React from "react";
-import { NavLink, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./Header3.css";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const Header = () => {
     const auth = useSelector(state => state.auth);
@@ -9,6 +11,14 @@ const Header = () => {
     // console.log("isToken at Header");
     console.log("auth / Header at front");
     console.log(auth);
+
+    const signinFunc = () => {
+        console.log(`process.env.REQUEST_KAKAOLOGIN`, process.env.REQUEST_KAKAOLOGIN);
+        fetch("https://limitless-island-44318.herokuapp.com/api/login/kakao")
+        .then((res) => {
+            console.log(res);
+        })
+    }
 
     if (isToken) {
         let userInfo = [];
@@ -24,7 +34,7 @@ const Header = () => {
     const renderNonLoginbar = () => {
         return (
             <>
-                <a href="/signin">SignIn</a>
+                <a href="javascript:void(0);" onClick={signinFunc}>SignIn</a>
                 <a href="/signup">SignUp</a>
             </>
             // <ul className="login-status">

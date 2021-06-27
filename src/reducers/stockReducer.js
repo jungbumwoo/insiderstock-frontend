@@ -90,7 +90,7 @@ const stockReducer = (state = initState, action) => {
             }
             break;
             
-        case "GET_INTEREST_FAILED":
+        case "DELETE_INTEREST_FAILED":
             state = {
                 ...state,
                 error: action.payload.error

@@ -79,9 +79,9 @@ const Signin = () => {
     return(
         <>  
             <Layout />
-            <div className="signin-container">
+            {/* <div className="signin-container">
                 <button type="button" id="kakao-login-btn"></button>
-            </div>
+            </div> */}
             <div>
                 <button type="button" onClick={handleKakao}>KAKAO_LOGIN</button>
             </div>

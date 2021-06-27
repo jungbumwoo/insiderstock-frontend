@@ -14,6 +14,15 @@ const Signin = () => {
     const isToken = localStorage.getItem('token');
     console.log("signin");
 
+    const handleKakao = () => {
+        console.log(`process.env.REQUEST_KAKAOLOGIN`, process.env.REACT_APP_KAKAO_JS_KEY);
+        console.log(`process.env.KAKAO_LOGIN_API`, process.env.REACT_APP_KAKAO_LOGIN_API);
+        fetch(process.env.REACT_APP_KAKAO_LOGIN_API)
+        .then((res) => {
+            console.log(res);
+        })
+    }
+
     useEffect(() => {
         console.log("Signin useEffect");
         // Kakao sdk import
@@ -72,6 +81,9 @@ const Signin = () => {
             <Layout />
             <div className="signin-container">
                 <button type="button" id="kakao-login-btn"></button>
+            </div>
+            <div>
+                <button type="button" onClick={handleKakao}>KAKAO_LOGIN</button>
             </div>
         </>
     )    

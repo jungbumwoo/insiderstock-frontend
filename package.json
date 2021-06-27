@@ -1,8 +1,4 @@
 {
-<<<<<<< HEAD
-  "homepage": "http://jungbumwoo.github.io/insiderstock-frontend/",
-=======
->>>>>>> 67e5d6af185f7a4de1d79533aa7f0958cc10aca0
   "name": "front",
   "version": "0.1.0",
   "private": true,

@@ -40,6 +40,7 @@ export const signout = () => {
             const res = await axiosInstance.get('auth/signout');
             if (res.status === 200) {
                 window.localStorage.removeItem("token");
+                window.sessionStorage.removeItem("insk_un");
                 dispatch({ type: "SIGNOUT_SUCCESS"});
             }
         } catch(err) {
@@ -82,6 +83,25 @@ export const postKakaoSignup = (id, access_token, nickname, profileImg110, provi
             }
         } catch(err) {
             console.log(err);
+        }
+    }
+}
+
+export const postToken = (token) => {
+    return async (dispatch) => {
+        try {
+            dispatch({ type: "POST_TOKEN_REQUEST"});
+            const res = await axiosInstance.post('auth/token', { token });
+            if (res.status === 200) {
+                console.log(`res.data`, res.data);
+                sessionStorage.setItem('insk_un', res.data.username);
+                dispatch({ type: "POST_TOKEN_SUCCESS", payload : {
+                    nickname: res.data.username
+                }});
+            }
+        } catch(err) {
+            console.log(err);
+            dispatch({ type: "POST_TOKEN_FAILED"})
         }
     }
 }

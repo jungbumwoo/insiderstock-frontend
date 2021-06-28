@@ -136,7 +136,6 @@
     transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
 }
 
-
 .header .menu-ul a {
     display: block;
     font-size: 1.4em;
@@ -144,4 +143,14 @@
     padding-top: 0.4em;
     border-bottom: 1px solid snow;
     color: #0052ff;
+}
+
+.header .menu-ul .visable {
+    display: block;
+    font-size: 1.2em;
+    color: #0052ff;
+    margin-bottom: 0.5em;
+}
+.header .menu-ul .disable {
+    display: none;
 }

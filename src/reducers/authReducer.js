@@ -69,7 +69,7 @@ const authReducer = (state = initState, action) => {
             state = {
                 token: undefined,
                 user: {
-                    username: '',
+                    username: null,
                     email: '',
                     picture: ''
                 },
@@ -135,6 +135,34 @@ const authReducer = (state = initState, action) => {
                     username: action.payload.nickname,
                     picture: action.payload.profileImg110
                 }
+            }
+            break;
+        case "POST_TOKEN_REQUEST":
+            state = {
+                ...state,
+                authenticate: false,
+                authenticating: true,
+                loading: true,
+            }
+            break;
+        case "POST_TOKEN_SUCCESS":
+            state = {
+                ...state,
+                authenticate: true,
+                authenticating: false,
+                loading: false,
+                token: action.payload.access_token,
+                user: {
+                    username: action.payload.nickname,
+                    picture: action.payload.profileImg110
+                }
+            }
+            break;
+        case "POST_TOKEN_FAILED":
+            state = {
+                ...state,
+                authenticating: false,
+                loading: false
             }
             break;
         default:

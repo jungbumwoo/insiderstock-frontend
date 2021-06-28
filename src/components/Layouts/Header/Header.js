@@ -5,16 +5,10 @@ import "./Header3.css";
 const Header = () => {
     const auth = useSelector(state => state.auth);
     const isToken = localStorage.getItem('token');
-    // console.log("isToken at Header");
-    console.log("auth / Header at front");
-    console.log(auth);
-
-    if (isToken) {
-        let userInfo = [];
-        userInfo.token = isToken;
-    }
+    const username = sessionStorage.getItem("insk_un");
     
     const renderLoggedinbar = () => {
+        console.log(auth);
         return (
             <a href="/signout">signout</a>
         )
@@ -23,36 +17,11 @@ const Header = () => {
     const renderNonLoginbar = () => {
         return (
             <>
-                <a href="/signin">SignIn</a>
-                <a href="/signup">SignUp</a>
+                <a href="/signin">로그인하기</a>
             </>
-            // <ul className="login-status">
-            //     <li>
-            //         <NavLink to="signin" className="nav-link">SignIn</NavLink>
-            //     </li>
-            //     <li>
-            //         <NavLink to="signup" className="nav-link">SignUp</NavLink>
-            //     </li>
-            // </ul>
         )
     };
 
-    // return (
-    //     <>
-    //         <div className="header">
-    //             <a href="/" class="logo">Insider</a>
-    //             <input class="menu-btn" type="checkbox" id="menu-btn"/>
-    //             <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
-    //             <ul className="menu-ul">
-    //                 <li><a href="/onboard">담은목록</a></li>
-    //                 <li><a href="/interest">관심종목</a></li>
-    //                 <li><a href="/notinterest">노관심종목</a></li>
-    //                 <li><a href="/ban">10일벤목록</a></li>
-    //             </ul>
-    //             { isToken ? renderLoggedinbar() : renderNonLoginbar()}
-    //         </div>
-    //     </>
-    // )
     const isClicked = () => {
         document.getElementById("menu-btn").checked = false;
     }
@@ -71,6 +40,7 @@ const Header = () => {
                     <div onClick={isClicked} className="modal-darkside"></div>
                     <div className="menuToggle">
                         <ul className="menu-ul">
+                            <span id="username" className={ username ? 'visable' : 'disable'}>{username}님</span>
                             <a href="/onboard">담은목록</a>
                             <a href="/interest">관심종목</a>
                             <a href="/notinterest">노관심종목</a>
@@ -79,16 +49,6 @@ const Header = () => {
                         </ul>
                     </div>
                 </div>
-                {/* <div className="menuToggle">
-                    <ul className="menu-ul">
-                        <a href="/onboard">담은목록</a>
-                        <a href="/interest">관심종목</a>
-                        <a href="/notinterest">노관심종목</a>
-                        <a href="/ban">10일벤목록</a>
-                        <a href="/signin">SignIn</a>
-                        <a href="/signup">SignUp</a>
-                    </ul>
-                </div> */}
             </div>
         </>
     )

@@ -1,10 +1,10 @@
 import axiosInstance from "../helpers/axios";
 
-export const getOnboard = () => {
+export const getOnboard = (pagenumber) => {
     return async (dispatch) => {
         dispatch({ type: "REQUEST_GET_ONBOARD"});
         try {
-            const res = await axiosInstance.get("/onboard");
+            const res = await axiosInstance.get(`/onboard?page=${pagenumber}`);
             if(res.status ===200) {
                 const { pagedOnboard } = res.data;
                 console.log(pagedOnboard);

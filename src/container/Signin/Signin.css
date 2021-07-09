@@ -3,10 +3,29 @@
     display: block;
     width: 100%;
     height: 70%;
-    padding-top: 6em;
+    padding-top: 8em;
 }
 
-#kakao-login-btn {
-    display: block;
+.signin-container .kakao-container a {
+    position: relative;
+    width: 70%;
+    height: 3em;
+
+    border-radius: 0.3em;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #4a4a4a;
+    background-color: #fff115;
+    box-shadow: 0 2px 1px 0 rgba(155, 155, 155, 0.5);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     margin: 0 auto;
 }
+
+/* #kakao-login-btn {
+    display: block;
+    margin: 0 auto;
+} */

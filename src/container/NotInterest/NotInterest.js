@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { getNotInterestAction } from "../../actions";
 import { notInterestDeleteAct } from "../../actions";
 import { returnUtil } from "../containerUtils.js";
+import { textObject } from "../../components/text/textObject.js";
+import { useDispatch, useSelector } from "react-redux";
+import NeedLogin from "../NeedLogin/NeedLogin";
+import InitialEmpty from "../InitialEmpty/InitialEmpty";
 
 const NotInterest = (props) => {
     const dispatch = useDispatch();
@@ -76,6 +79,19 @@ const NotInterest = (props) => {
             )
         })
         return result;
+    }
+
+    let isToken = localStorage.getItem('token');
+    if(!isToken) {
+        return <NeedLogin 
+                    title= {textObject.nointerest.title}
+                    description1 = {textObject.nointerest.description1}
+                    description2 = {textObject.nointerest.description2} />
+    } else if (pageOfItems.length == 0) {
+        return <InitialEmpty
+                    title= {textObject.nointerest.title}
+                    description1 = {textObject.nointerest.description1}
+                    description2 = {textObject.nointerest.description2} />
     }
 
     return (

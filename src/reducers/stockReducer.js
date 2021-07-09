@@ -3,6 +3,7 @@ const initState = {
     pagedGetInt: { pager: {pages: [1]}, pageOfItems: []},
     loading: false,
     paginatedResult: { pager: {currentPage: 1}},
+    interests: [],
     error: null
 };
 

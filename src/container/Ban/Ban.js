@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteBanAction, getBanAction } from '../../actions/banAction';
+import InitialEmpty from '../InitialEmpty/InitialEmpty';
 import Layout from "../../components/Layouts/Layout/Layout.js";
+import NeedLogin from "../NeedLogin/NeedLogin.js";
 import { returnUtil } from '../containerUtils';
+import { textObject } from '../../components/text/textObject';
 
 const Ban = (props) => {
     const dispatch = useDispatch();
@@ -65,6 +68,19 @@ const Ban = (props) => {
         setpageNum(clickedNum);
     };
 
+    let isToken = localStorage.getItem('token');
+    if(!isToken) {
+        return <NeedLogin 
+                    title= {textObject.ban.title}
+                    description1 = {textObject.ban.description1}
+                    description2 = {textObject.ban.description2} />
+    } else if (pageOfItems.length == 0) {
+        return <InitialEmpty
+                    title= {textObject.nointerest.title}
+                    description1 = {textObject.nointerest.description1}
+                    description2 = {textObject.nointerest.description2} />
+    }
+ 
     return(
         <>  
             <Layout />

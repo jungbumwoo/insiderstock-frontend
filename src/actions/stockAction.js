@@ -25,6 +25,7 @@ export const getAllStock = (params) => {
             console.log(err)
             if (err.response.data.err.message === "jwt expired") {
                 localStorage.removeItem('token');
+                window.location.reload(false);
             }
             dispatch({
                 type: "GET_ALL_STOCKS_FAILED",

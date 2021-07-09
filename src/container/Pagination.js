@@ -15,8 +15,9 @@ const Pagination = (props) => {
         const params = new URLSearchParams(props.location.search);
         const page = parseInt(params.get('page')) || 1;
         if (page !== pager.currentPage) {
+            // fetch(`https://limitless-island-44318.herokuapp.com/api/stock?page=${page}`, { method: 'GET'})
             fetch(`http://localhost:2000/api/stock?page=${page}`, { method: 'GET'})
-                .then(response =>response.json())
+            .then(response =>response.json())
                 .then((data) => {
                     console.log(data);
                     let { pager, pageOfItems } = data.paginatedResult;

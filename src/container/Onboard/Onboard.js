@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addFillInOnboardAction, deleteOnboardAction, getOnboard } from "../../actions/onboardAction.js";
-import Layout from "../../components/Layouts/Layout/Layout.js";
 import { returnUtil } from "../containerUtils.js";
-import OnboardAddModal from "../../components/Modals/OnboardAddModal/OnboardAddModal.js";
 import { ModalMessage } from "../../components/Modals/ModalMessage/ModalMessage.js";
 import { textObject } from "../../components/text/textObject.js";
+import { Link } from "react-router-dom";
+import { LoadingSpinner } from "../LoadingSpinner/LoadingSpinner";
 
-import "./Onboard.css";
+import InitialEmpty from "../InitialEmpty/InitialEmpty.js";
+import Layout from "../../components/Layouts/Layout/Layout.js";
+import NeedLogin from "../NeedLogin/NeedLogin.js";
+import OnboardAddModal from "../../components/Modals/OnboardAddModal/OnboardAddModal.js";
 
 const Onboard = (props) => {
     const onboard = useSelector(state => state.onboard);
     const { pager, pageOfItems } = onboard.pagedOnboard;
     const dispatch = useDispatch();
-    const [ checkedNum, setCheckedNum] = useState([]);
-    const [pageNum, setpageNum] = useState(1);
+    const [ checkedNum, setCheckedNum ] = useState([]);
+    const [ pageNum, setpageNum ] = useState(1);
 
     //about Add Modal
     const [modalShow, setmodalShow] = useState(false);
@@ -29,10 +32,24 @@ const Onboard = (props) => {
     const [ modalTitle, setModalTitle ] = useState('');
     const [ modalAlert, setModalAlert ] = useState('');
 
-    useEffect(() => {
-        dispatch(getOnboard(pageNum));
-    }, [pageNum]);
-    console.log(onboard);
+    // Pagination
+    const [ currentUrl, setCurrentUrl ] = useState('');
+    const [ checkedArray, setCheckedArray ] = useState([]);
+
+    useEffect(()=> {
+        let urlSearchParams = new URLSearchParams(props.location.search);
+        let urlParams = parseInt(urlSearchParams.get('page')) || 1;
+            // When Page Change
+            if(urlParams !== onboard.pagedOnboard.pager.pages){
+                console.log("urlParams !== stock.paginatedResult.pager.currentPage");
+                dispatch(getOnboard(urlParams));
+            } else if (urlParams === 1 && onboard.pagedOnboard.pager.pages === 1) {
+                // When first page was loaded.
+                console.log("urlParams === 1 && stock.paginatedResult.pager.currentPage === 1")
+                dispatch(getOnboard(urlParams));    
+            }
+            // setCurrentUrl(stock.paginatedResult.pager.currentPage);
+    }, [currentUrl]);
 
     const checkBoxChange = (e) => {
         const { id, checked } = e.target;
@@ -53,7 +70,7 @@ const Onboard = (props) => {
     const returnOnboards = () => {
         let onboardList = pageOfItems.map((trs) => {
             return (
-                <tr key={pageOfItems.indexOf(trs)}>
+                <tr onClick={handleTRClick} className={checkedNum.includes(parseInt(pageOfItems.indexOf(trs))) ? 'checked-tr' : 'unchecked-tr'} id={parseInt(pageOfItems.indexOf(trs))} key={pageOfItems.indexOf(trs)}>
                     <td><input type="checkbox" onChange={checkBoxChange} id={parseInt(pageOfItems.indexOf(trs))} checked={checkedNum.includes(pageOfItems.indexOf(trs))} name="chk" /></td>
                     <td>{trs.ticker ? trs.ticker : '-'}</td>
                     <td>{trs.company}</td>
@@ -125,7 +142,6 @@ const Onboard = (props) => {
                 price: mdPrice
             }
             dispatch(addFillInOnboardAction(singleOnboard));
-            
         } else {
             console.log('기호, 회사명, 매수가, 수량은 필수기입 항목입니다.');
         }
@@ -134,12 +150,63 @@ const Onboard = (props) => {
         
     }
 
+    const getPageNum = () => {
+        let urlSearchParams = new URLSearchParams(props.location.search);
+        let urlParams = parseInt(urlSearchParams.get('page')) || 1;
+        return urlParams;
+    }
+
+    const pageChange = () => {
+        let urlSearchParams = new URLSearchParams(props.location.search);
+        let urlParams = parseInt(urlSearchParams.get('page')) || 1;
+        setCurrentUrl(urlParams);
+        setCheckedNum([]);
+    }
+
+    const handleTRClick = (e) => {
+        let intId = parseInt(e.target.parentNode.id);
+        let isChecked = checkedNum.includes(intId);
+        console.log(`isChecked`, isChecked);
+        if(isChecked && !isNaN(intId)) {
+            //uncheck
+            let filtered = checkedNum.filter(el => el !== intId);
+            setCheckedNum(filtered);
+        } else if (!isChecked && !isNaN(intId)) {
+            //check
+            setCheckedNum([
+                ...checkedNum,
+                intId
+            ])
+        }
+    }
+    console.log(`checkedNum`, checkedNum);
+
+    const handleWhatis = () => {};
+
+    let isToken = localStorage.getItem('token');
+    if(!isToken) {
+        return <NeedLogin 
+                    title= {textObject.onboard.whatisOnboard}
+                    description1 = {textObject.onboard.description1}
+                    description2 = {textObject.onboard.description2} />
+    } else if (pageOfItems.length == 0) {
+        return <InitialEmpty title= {textObject.interest.title}
+                            description1 = {textObject.interest.description1}
+                            description2 = {textObject.interest.description2}/>
+    }
+
+    if(onboard.loading){
+        return <LoadingSpinner />
+    }
+
     return(
         <>
             <Layout />
             <div className="onboard-container">
-                <span id="onboard-title">담은목록</span>
-                {/* <div className="data_table"> */}
+                <div className="mainquestion" onClick={handleWhatis}>
+                    <span className="subtitle">담은목록이란</span>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/11/Blue_question_mark_icon.svg" alt="" />
+                </div>
                 <table className="onboard-table">
                     <thead>
                         <tr>
@@ -156,19 +223,31 @@ const Onboard = (props) => {
                         {returnUtil(onboard, returnOnboards)}
                     </tbody>
                 </table>
-                {/* </div> */}
-                <div className="page_numbers">
+                <div className="pageNum">
                     <ul>
-                        {pager.pages.map(num => {
-                            return(
-                                <li key={num} onClick={handlePageChange}>{num}</li>
+                        <li className={ `${pager.currentPage === 1 ? 'disabled' : ''}`}>
+                            <Link to={{search: `?page=1`}} onClick={pageChange}>&laquo;</Link>
+                        </li> 
+                        <li className={ `${pager.currentPage === 1 ? 'disabled' : ''}`}>
+                            <Link to={{search: `?page=${pager.currentPage - 1}`}} onClick={pageChange}>&lt;</Link>
+                        </li>
+                        {pageOfItems ? pager.pages.map(num => {
+                            return (
+                                <li key={num}>
+                                    <Link to={{search: `?page=${num}`}} onClick={pageChange} className={(num === getPageNum() ? 'active-pagenum' : 'pagenum')}>{num}</Link>
+                                </li>
                             )
-                        })}
+                        }) : <span>Pager undefined at News</span>}
+                        <li className={ `${pager.currentPage === pager.totalPages ? 'disabled' : ''}`}>
+                            <Link to={{search: `?page=${pager.currentPage + 1}`}} onClick={pageChange}>&gt;</Link>
+                        </li>
+                        <li className={ `${pager.currentPage === pager.totalPages ? 'disabled' : ''}`}>
+                            <Link to={{search: `?page=${pager.totalPages}`}} onClick={pageChange}>&raquo;</Link>
+                        </li>
                     </ul>
                 </div>
                 <div className="buttons">
                     <button onClick={handleDelete}>Delete</button>
-                    <button onClick={handleAddBtn}>Add</button>
                 </div>
                 <OnboardAddModal 
                     modalShow={modalShow}

@@ -14,24 +14,6 @@ const Signin = () => {
     const isToken = localStorage.getItem('token');
     console.log("signin");
 
-    const handleKakao = () => {
-        console.log(`process.env.REQUEST_KAKAOLOGIN`, process.env.REACT_APP_KAKAO_JS_KEY);
-        console.log(`process.env.KAKAO_LOGIN_API`, process.env.REACT_APP_KAKAO_LOGIN_API);
-        // fetch(process.env.REACT_APP_KAKAO_LOGIN_API, {
-        fetch('http://localhost:2000/api/login/kakao')
-        .then(res => {
-            console.log(res);
-        })
-    }
-
-    const handleFBLogin = () => {
-        fetch('http://localhost:2000/api/auth/facebook')
-        .then(res => {
-            console.log(res);
-            // localStorage.setItem()
-        })
-    }
-
     // useEffect(() => {
     //     console.log("Signin useEffect");
     //     // Kakao sdk import
@@ -92,10 +74,11 @@ const Signin = () => {
                 <button type="button" id="kakao-login-btn"></button>
             </div> */}
             <div className="signin-container">
-                <button type="button" onClick={handleKakao}>KAKAO_LOGIN</button>
-                <button type="button" onClick={handleFBLogin}>FACEBOOK_LOGIN</button>
-                <a href="http://localhost:2000/api/login/kakao">KaKao Login</a>
-                <a href="http://localhost:2000/api/auth/facebook">Facebook Login</a>
+                {/* <a href="https://limitless-island-44318.herokuapp.com/api/login/kakao">KaKao Login</a> */}
+                <div className="kakao-container">
+                    <a href="http://localhost:2000/api/login/kakao">Login with Kakao</a>
+                </div>
+                {/* <a href="https://limitless-island-44318.herokuapp.com/api/api/auth/facebook">Facebook Login</a> */}
             </div>
         </>
     )    

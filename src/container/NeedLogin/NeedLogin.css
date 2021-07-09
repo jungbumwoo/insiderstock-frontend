@@ -1,0 +1,42 @@
+.need-login-container {
+    background-color: #fff;
+    padding-top: 12em;
+    display: block;
+    text-align: center;
+}
+
+.need-login {
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+    width: 90%;
+
+    font-size: 1.2rem;
+    font-weight: 540;
+    color: #0052ff;
+}
+
+.need-login-center {
+    margin-top: 3em;
+    text-decoration: underline;
+    color: #0052ff;
+
+    font-size: 1rem;
+    font-weight: 540;
+}
+
+.need-login-text {
+    margin: 0 auto;
+    margin-top: 15em; 
+    width: 80%;  
+}
+
+.need-login-text p {
+    margin-bottom: 1.2rem;
+    line-height: 1.2rem;
+}
+
+.need-login-text p:first-child {
+    color: #0052ff;
+    font-size: 0.9rem;
+}

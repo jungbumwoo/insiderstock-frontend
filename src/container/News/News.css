@@ -58,6 +58,11 @@
     background-color: #33dbff;
 }
 
+/* a tag css */
+.tag {
+    text-decoration: underline;
+}
+
 /* buttons */
 
 .buttons {

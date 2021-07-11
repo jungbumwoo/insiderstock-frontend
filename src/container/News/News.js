@@ -290,8 +290,8 @@ const News = (props) => {
                             return (
                                 <tr onClick={handleTRClick} className={checkedArray.includes(parseInt(pageOfItems.indexOf(trs))) ? 'checked-tr' : 'unchecked-tr'} id={parseInt(pageOfItems.indexOf(trs))} key={pageOfItems.indexOf(trs)}>
                                     <td className="checkbox-hide"><input type="checkbox" onChange={checkBoxChange} id={parseInt(pageOfItems.indexOf(trs))} checked={checkedArray.includes(pageOfItems.indexOf(trs))} name="chk" /></td>
-                                    <td><a href={`https://www.gurufocus.com/stock/${trs.ticker}/insider`} target='_blank' rel="noreferrer">{trs.ticker}</a></td>
-                                    <td><a href={`https://www.google.com/search?q=${trs.company}`} target='_blank' rel="noreferrer">{trs.company}</a></td>
+                                    <td><a href={`https://www.gurufocus.com/stock/${trs.ticker}/insider`} target='_blank' rel="noreferrer" className="tag">{trs.ticker}</a></td>
+                                    <td><a href={`https://www.google.com/search?q=${trs.company}`} target='_blank' rel="noreferrer" className="tag">{trs.company}</a></td>
                                     {/* <th>{trs.currentprice}</th> */}
                                     <td>{trs.insiderName}</td>
                                     <td>{trs.insiderPosition ? trs.insiderPosition : '-'}</td>

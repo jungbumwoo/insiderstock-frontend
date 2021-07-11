@@ -1,0 +1,145 @@
+.onboard-container {
+    padding-top: 4.8em;
+}
+
+/* Above part */
+.onboard-container .mainquestion {
+    display: flex;
+    justify-self: flex-end;
+    width: 30%;
+    margin-left: 70%;
+}
+
+.onboard-container .subtitle {
+    text-align: right;
+    color: #0052ff;
+    font-size: 0.8rem;
+    padding: 0.4em;
+}
+
+.onboard-container .mainquestion img {
+    width: 0.8rem;
+    height: 0.8rem;
+    margin-right: 0.6em;
+    margin-left: -0.1em;
+    align-content: space-around;
+    margin-top: 0.3em;
+}
+
+/* Table */
+.onboard-container table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Zebra striping */
+.onboard-container table tr:nth-of-type(odd) {
+    background: #eee;
+}
+
+.onboard-container table th {
+    background-color: #00d2ff;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+.onboard-container table td {
+    padding: 0.4em;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+.onboard-container table thead tr th {
+    padding: 0.4em;
+    vertical-align: middle;
+}
+
+.onboard-container table tbody .checked-tr {
+    background-color: #33dbff;
+}
+
+/* Pagination */
+
+.pageNum {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    float: none;
+    margin-top: 5em;
+    margin-bottom: 1em;
+}
+
+.pageNum ul li {
+    display: inline-flex;
+    padding: 0.5em 0.3em;
+}
+
+.pageNum ul li a{
+    padding: 0.6em 1em;
+    text-decoration: none;
+    font-size: 1em;
+    border: 1px solid #ccc;
+}
+
+.pageNum ul .active-pagenum {
+    background-color: #00d2ff;
+}
+
+.pageNum ul li .active-pagenum {
+    color: #eee;
+    text-decoration: none;
+}
+
+.disabled {
+    display: none;
+}
+
+@media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+    /* Force tables to not be like tables anymore */
+    .onboard-container table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    .onboard-container table thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    .onboard-container table tr {border: 1px solid #ccc;}
+    .onboard-container table td {
+        border: none;
+        border-bottom: 1px solid #d9d9d9;
+        position: relative;
+        padding-left: 50%;
+    }
+    
+    .checkbox-hide {
+        display: none;
+    }
+
+    .onboard-container table td:before {
+        position: absolute;
+        top: 0.3em;
+        left: 0.3em;
+        width: 45%;
+        padding-right: 0.4em;
+        white-space: nowrap;
+    }
+
+    .onboard-container td:nth-of-type(1):before { content: "check"}
+    .onboard-container td:nth-of-type(2):before { content: "종목코드"}
+    .onboard-container td:nth-of-type(3):before { content: "종목명"}
+    .onboard-container td:nth-of-type(4):before { content: "거래자"}
+    .onboard-container td:nth-of-type(5):before { content: "직함"}
+    .onboard-container td:nth-of-type(6):before { content: "일자"}
+    .onboard-container td:nth-of-type(7):before { content: "거래유형"}
+    .onboard-container td:nth-of-type(8):before { content: "거래량"}
+    .onboard-container td:nth-of-type(9):before { content: "지분변화"}
+    .onboard-container td:nth-of-type(10):before { content: "매수가"}
+    .onboard-container td:nth-of-type(11):before { content: "보유지분변화"}
+    .onboard-container td:nth-of-type(12):before { content: "거래 후 가격변동률(%)"}
+    .onboard-container td:nth-of-type(13):before { content: "주가수익률"}
+    .onboard-container td:nth-of-type(14):before { content: "시가총액($M)"}
+}

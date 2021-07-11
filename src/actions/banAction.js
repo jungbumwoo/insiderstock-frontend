@@ -26,6 +26,7 @@ export const addBanAction = (data) => {
             const res = await axiosInstance.post("/addban", {bandata: data});
             if (res.status ===201) {
                 dispatch({ type: "ADD_BAN_SUCCESS"});
+                alert('담겼습니다!');
             }
         } catch(err) {
             console.log(err);

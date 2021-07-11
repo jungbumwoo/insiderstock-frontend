@@ -66,6 +66,7 @@ export const postAddInterestAction = (addStock) => {
             const res = await axiosInstance.post("/addinterest", { data: addStock });
             if(res.status === 201){
                 dispatch({ type: "ADD_INTEREST_POST_SUCCESS", payload: {added: addStock}});
+                alert('담겼습니다!');
             } else {
                 console.log("Err: at postAddInterestAction");
             };

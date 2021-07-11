@@ -159,7 +159,7 @@ const Ban = (props) => {
                     </tbody>
                 </table>
                 
-                <div className=" currentUrl">
+                <div className="pageNum">
                     <ul>
                         <li className={ `${pager.currentPage === 1 ? 'disabled' : ''}`}>
                             <Link to={{search: `?page=1`}} onClick={pageChange}>&laquo;</Link>
@@ -181,7 +181,7 @@ const Ban = (props) => {
                             <Link to={{search: `?page=${pager.totalPages}`}} onClick={pageChange}>&raquo;</Link>
                         </li>
                     </ul>
-                        {/* <ul>{returnPages()}</ul> */}
+                    {/* <ul>{returnPages()}</ul> */}
                 </div>
                 <div className="buttons">
                     <button onClick={handleDeleteBtn}>Delete</button>

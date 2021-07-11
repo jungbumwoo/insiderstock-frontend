@@ -22,7 +22,7 @@ const GlobalStyles = createGlobalStyle`
     }
     a{
         color: inherit;
-        text-decoration: none;
+        http://3.36.109.95/
     }
 `;
 

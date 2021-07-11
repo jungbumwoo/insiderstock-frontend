@@ -8,13 +8,6 @@ const Modal = (props) => {
     let checked = props.checked;
     let onModalInputChange = props.onModalInputChange;
     let handleModalSubmit = props.handleModalSubmit;
-    // let modalInputs = props.modalInputs;
-    // console.log(modalInputs);
-
-    // const costCalculate = (item) => {
-    //     let multiple = modalInputs[`${checked.indexOf(item)}_price`] * modalInputs[`${checked.indexOf(item)}_shares`];
-    //     return multiple;
-    // }
     
     const filledModal = () => {
         let checkedList = checked.map((item) => {
@@ -30,11 +23,6 @@ const Modal = (props) => {
                     <input type="text" defaultValue={item.purchasePrice} name={`${checked.indexOf(item)}_onboard_price`} onChange={onModalInputChange} />
                     <label>Shares:</label>
                     <input type="text" defaultValue={0} name={`${checked.indexOf(item)}_onboard_shares`} onChange={onModalInputChange} />
-                    {/* <label>Cost: </label> */}
-                    {/* <span defaultValue={0} name={`${checked.indexOf(item)}_cost`} onChange={onModalInputChange}>{costCalculate(item)}</span> */}
-                    {/* <input type="text" value={costCalculate(item)}
-                            name={`${checked.indexOf(item)}_cost`} 
-                            onChange={onModalInputChange} /> */}
                 </div>    
             )
         })

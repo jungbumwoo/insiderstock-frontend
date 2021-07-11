@@ -12,6 +12,8 @@ import Layout from "../../components/Layouts/Layout/Layout.js";
 import NeedLogin from "../NeedLogin/NeedLogin.js";
 import OnboardAddModal from "../../components/Modals/OnboardAddModal/OnboardAddModal.js";
 
+import "./Onboard2.css"
+
 const Onboard = (props) => {
     const onboard = useSelector(state => state.onboard);
     const { pager, pageOfItems } = onboard.pagedOnboard;
@@ -71,7 +73,7 @@ const Onboard = (props) => {
         let onboardList = pageOfItems.map((trs) => {
             return (
                 <tr onClick={handleTRClick} className={checkedNum.includes(parseInt(pageOfItems.indexOf(trs))) ? 'checked-tr' : 'unchecked-tr'} id={parseInt(pageOfItems.indexOf(trs))} key={pageOfItems.indexOf(trs)}>
-                    <td><input type="checkbox" onChange={checkBoxChange} id={parseInt(pageOfItems.indexOf(trs))} checked={checkedNum.includes(pageOfItems.indexOf(trs))} name="chk" /></td>
+                    <td className="checkbox-hide"><input type="checkbox" onChange={checkBoxChange} id={parseInt(pageOfItems.indexOf(trs))} checked={checkedNum.includes(pageOfItems.indexOf(trs))} name="chk" /></td>
                     <td>{trs.ticker ? trs.ticker : '-'}</td>
                     <td>{trs.company}</td>
                     <td>{trs.MarketCap ? trs.MarketCap : '-'}</td>
@@ -249,17 +251,17 @@ const Onboard = (props) => {
                 <div className="buttons">
                     <button onClick={handleDelete}>Delete</button>
                 </div>
-                <OnboardAddModal 
-                    modalShow={modalShow}
-                    handleModalInputChange={handleModalInputChange}
-                    submit={modalSubmit}
-                />
-                <ModalMessage 
-                    shown={modalMessageShow}
-                    modalTitle={textObject.onboard.whatisOnboard}
-                    modalAlert={modalAlert}
-                />
             </div>
+            <OnboardAddModal 
+                modalShow={modalShow}
+                handleModalInputChange={handleModalInputChange}
+                submit={modalSubmit}
+            />
+            <ModalMessage 
+                shown={modalMessageShow}
+                modalTitle={textObject.onboard.whatisOnboard}
+                modalAlert={modalAlert}
+            />
         </>
     )
 }

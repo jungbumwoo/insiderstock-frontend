@@ -30,6 +30,7 @@ export const postNotInterestAction = (notinterestStock) => {
             const res = await axiosInstance.post("/addnotinterest", { data: notinterestStock});
             if(res.status === 201) {
                 dispatch({ type: "ADD_NOTINTEREST_POST_SUCCESS"});
+                alert('담겼습니다!');
             } else {
                 dispatch({ type: "ADD_NOTINTEREST_POST_FAILED", payload: { error: "Err at postNotInterestAction"}});
                 console.log("Err at postNotInterestAction");

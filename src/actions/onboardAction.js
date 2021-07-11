@@ -27,6 +27,7 @@ export const addOnboard = (onboardList) => {
             const res = await axiosInstance.post("/add/onboard", { onboardList });
             if (res.status === 201) {
                 dispatch({ type: "SUCCESS_ADD_ONBOARD"});
+                alert('담겼습니다!')
             }
         } catch(err) {
             console.log(err.response);
@@ -43,6 +44,7 @@ export const addFillInOnboardAction = (filledInData) => {
             let res = axiosInstance.post('/add/onboard', { filledInOneData : filledInData});
             if(res.status === 201) {
                 dispatch({ type: "SUCCESS_ADD_FILLEDINONBOARD"});
+                alert('담겼습니다!')
             }
         } catch (error) {
             console.log(error);

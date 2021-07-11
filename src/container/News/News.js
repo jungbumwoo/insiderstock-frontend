@@ -292,7 +292,6 @@ const News = (props) => {
                                     <td className="checkbox-hide"><input type="checkbox" onChange={checkBoxChange} id={parseInt(pageOfItems.indexOf(trs))} checked={checkedArray.includes(pageOfItems.indexOf(trs))} name="chk" /></td>
                                     <td><a href={`https://www.gurufocus.com/stock/${trs.ticker}/insider`} target='_blank' rel="noreferrer" className="tag">{trs.ticker}</a></td>
                                     <td><a href={`https://www.google.com/search?q=${trs.company}`} target='_blank' rel="noreferrer" className="tag">{trs.company}</a></td>
-                                    {/* <th>{trs.currentprice}</th> */}
                                     <td>{trs.insiderName}</td>
                                     <td>{trs.insiderPosition ? trs.insiderPosition : '-'}</td>
                                     <td>{trs.date.slice(0,10)}</td>
@@ -303,7 +302,6 @@ const News = (props) => {
                                     <td>{trs.cost}</td>
                                     <td>{trs.finalShare}</td>
                                     <td>{trs.priceChangeSIT}</td>
-                                    {/* <th>{trs.DividendYield}</th> */}
                                     <td>{trs.PERatio}</td>
                                     <td>{trs.MarketCap}</td>
                                 </tr>

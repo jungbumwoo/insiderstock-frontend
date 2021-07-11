@@ -74,9 +74,9 @@ const Signin = () => {
                 <button type="button" id="kakao-login-btn"></button>
             </div> */}
             <div className="signin-container">
-                {/* <a href="https://limitless-island-44318.herokuapp.com/api/login/kakao">KaKao Login</a> */}
                 <div className="kakao-container">
-                    <a href="http://localhost:2000/api/login/kakao">Login with Kakao</a>
+                    <a href="https://limitless-island-44318.herokuapp.com/api/login/kakao">Login with Kakao</a>
+                    {/* <a href="http://localhost:2000/api/login/kakao">Login with Kakao</a> */}
                 </div>
                 {/* <a href="https://limitless-island-44318.herokuapp.com/api/api/auth/facebook">Facebook Login</a> */}
             </div>

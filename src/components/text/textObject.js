@@ -17,7 +17,7 @@ export const textObject = {
         "description1" : '-	관심 있는 종목의 주식을 모아볼 수 있는 목록입니다.',
         "description2" : '-	관심목록에 종목을 추가하면 해당 종목의 매수/매도 거래가 발생할 시 확인할 수 있습니다.',
     },
-    "nointerest" : {
+    "notinterest" : {
         "title": '노관심목록이란?',
         "description1": '- 관심 없는 종목의 주식을 설정할 수 있습니다.',
         "description2": '- 노관심목록에 종목을 추가하면 해당 종목의 매수/매도 거래가 발생하여도 메인화면에 노출되지 않습니다.'

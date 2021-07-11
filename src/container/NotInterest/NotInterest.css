@@ -1,23 +1,23 @@
-.interestContainer {
+.notinterestContainer {
     padding-top: 4.8em;
 }
 
 /* Above part */
-.interestContainer .mainquestion {
+.notinterestContainer .mainquestion {
     display: flex;
     justify-self: flex-end;
     width: 30%;
     margin-left: 70%;
 }
 
-.interestContainer .subtitle {
+.notinterestContainer .subtitle {
     text-align: right;
     color: #0052ff;
     font-size: 0.8rem;
     padding: 0.4em;
 }
 
-.interestContainer .mainquestion img {
+.notinterestContainer .mainquestion img {
     width: 0.8rem;
     height: 0.8rem;
     margin-right: 0.6em;
@@ -27,35 +27,35 @@
 }
 
 /* Table */
-.interestContainer table {
+.notinterestContainer table {
     width: 100%;
     border-collapse: collapse;
 }
 
 /* Zebra striping */
-.interestContainer table tr:nth-of-type(odd) {
+.notinterestContainer table tr:nth-of-type(odd) {
     background: #eee;
 }
 
-.interestContainer table th {
+.notinterestContainer table th {
     background-color: #00d2ff;
     color: white;
     font-weight: bold;
     text-align: center;
 }
 
-.interestContainer table td {
+.notinterestContainer table td {
     padding: 0.4em;
     border: 1px solid #ccc;
     text-align: left;
 }
 
-.interestContainer table thead tr th {
+.notinterestContainer table thead tr th {
     padding: 0.4em;
     vertical-align: middle;
 }
 
-.interestContainer table tbody .checked-tr {
+.notinterestContainer table tbody .checked-tr {
     background-color: #33dbff;
 }
 
@@ -97,18 +97,18 @@
 
 @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
     /* Force tables to not be like tables anymore */
-    .interestContainer table, thead, tbody, th, td, tr {
+    .notinterestContainer table, thead, tbody, th, td, tr {
         display: block;
     }
 
-    .interestContainer table thead tr {
+    .notinterestContainer table thead tr {
         position: absolute;
         top: -9999px;
         left: -9999px;
     }
 
-    .interestContainer table tr {border: 1px solid #ccc;}
-    .interestContainer table td {
+    .notinterestContainer table tr {border: 1px solid #ccc;}
+    .notinterestContainer table td {
         border: none;
         border-bottom: 1px solid #d9d9d9;
         position: relative;
@@ -119,7 +119,7 @@
         display: none;
     }
 
-    .interestContainer table td:before {
+    .notinterestContainer table td:before {
         position: absolute;
         top: 0.3em;
         left: 0.3em;
@@ -128,18 +128,10 @@
         white-space: nowrap;
     }
 
-    .interestContainer td:nth-of-type(1):before { content: "check"}
-    .interestContainer td:nth-of-type(2):before { content: "종목코드"}
-    .interestContainer td:nth-of-type(3):before { content: "종목명"}
-    .interestContainer td:nth-of-type(4):before { content: "거래자"}
-    .interestContainer td:nth-of-type(5):before { content: "직함"}
-    .interestContainer td:nth-of-type(6):before { content: "일자"}
-    .interestContainer td:nth-of-type(7):before { content: "거래유형"}
-    .interestContainer td:nth-of-type(8):before { content: "거래량"}
-    .interestContainer td:nth-of-type(9):before { content: "지분변화"}
-    .interestContainer td:nth-of-type(10):before { content: "매수가"}
-    .interestContainer td:nth-of-type(11):before { content: "보유지분변화"}
-    .interestContainer td:nth-of-type(12):before { content: "거래 후 가격변동률(%)"}
-    .interestContainer td:nth-of-type(13):before { content: "주가수익률"}
-    .interestContainer td:nth-of-type(14):before { content: "시가총액($M)"}
+    .notinterestContainer td:nth-of-type(1):before { content: "check"}
+    .notinterestContainer td:nth-of-type(2):before { content: "종목코드"}
+    .notinterestContainer td:nth-of-type(3):before { content: "종목명"}
+    .notinterestContainer td:nth-of-type(4):before { content: "거래자"}
+    .notinterestContainer td:nth-of-type(6):before { content: "일자"}
+    .notinterestContainer td:nth-of-type(5):before { content: "시가총액"}
 }

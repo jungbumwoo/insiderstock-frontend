@@ -140,9 +140,9 @@ const News = (props) => {
 
     const handleNotIntBtn = () => {
         let getToken = localStorage.getItem('token');
-        setModalTitle(textObject.nointerest.title);
-        setModalContent1(textObject.nointerest.description1);
-        setModalContent2(textObject.nointerest.description2);
+        setModalTitle(textObject.notinterest.title);
+        setModalContent1(textObject.notinterest.description1);
+        setModalContent2(textObject.notinterest.description2);
         if (checkedArray.length === 0) {
             // should click at least one
             setModalAlert(textObject.atleastPick);

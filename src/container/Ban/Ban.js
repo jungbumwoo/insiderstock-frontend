@@ -3,32 +3,42 @@ import { useDispatch, useSelector } from 'react-redux'
 import { deleteBanAction, getBanAction } from '../../actions/banAction';
 import InitialEmpty from '../InitialEmpty/InitialEmpty';
 import Layout from "../../components/Layouts/Layout/Layout.js";
+import { ModalMessage } from '../../components/Modals/ModalMessage/ModalMessage';
 import NeedLogin from "../NeedLogin/NeedLogin.js";
+import { Link } from "react-router-dom";
 import { returnUtil } from '../containerUtils';
 import { textObject } from '../../components/text/textObject';
+
+import './Ban.css'
 
 const Ban = (props) => {
     const dispatch = useDispatch();
     const ban = useSelector(state => state.ban);
     const { pager, pageOfItems } = ban.bans;
-    const [pageNum, setpageNum] = useState(1);
-    const [checkedNum, setcheckedNum] = useState([]);
+    const [ checkedArray, setCheckedArray] = useState([]);
 
-    console.log(`ban.bans.pager`, ban.bans.pager);
+    // For Modal
+    const [ modalMessageShow, setModalMessageShow ] = useState(false);
+    const [ modalTitle, setModalTitle ] = useState('');
+    const [ modalContent1, setModalContent1 ] = useState('');
+    const [ modalContent2, setModalContent2 ] = useState('');
+
+    // Pagination
+    const [ currentUrl, setCurrentUrl ] = useState(1);
 
     useEffect(() => {
-        dispatch(getBanAction(pageNum));
-    }, [pageNum]);
+        dispatch(getBanAction( currentUrl));
+    }, [ currentUrl]);
     
     const returnBans = () => {
-        let returnBan = pageOfItems.map((item) => {
+        let returnBan = pageOfItems.map((trs) => {
             return (
-                <tr>
-                    <td><input type="checkbox" id={pageOfItems.indexOf(item)} onChange={handleCheckBox} /></td>
-                    <td>{item.ticker}</td>
-                    <td>{item.company}</td>
-                    <td>{item.MarketCap}</td>
-                    <td>{item.PERatio}</td>
+                <tr onClick={handleTRClick} className={checkedArray.includes(parseInt(pageOfItems.indexOf(trs))) ? 'checked-tr' : 'unchecked-tr'} id={parseInt(pageOfItems.indexOf(trs))} key={pageOfItems.indexOf(trs)}>
+                    <td className="checkbox-hide"><input type="checkbox" id={pageOfItems.indexOf(trs)} onChange={handleCheckBox} /></td>
+                    <td>{trs.ticker}</td>
+                    <td>{trs.company}</td>
+                    <td>{trs.MarketCap}</td>
+                    <td>{trs.PERatio}</td>
                     {/* <td>{item.DividendYield.$numberDecimal}</td> */}
                 </tr>
             )
@@ -37,36 +47,80 @@ const Ban = (props) => {
     };
 
     const handleCheckBox = (e) => {
-        console.log(`checkedNum`, checkedNum);
+        console.log(` checkedArray`,  checkedArray);
         const { id, checked } = e.target;
         const intId = parseInt(id);
         if (checked) {
             // checked true
-            setcheckedNum([
-                ...checkedNum,
+            setCheckedArray([
+                ... checkedArray,
                 intId
             ])
         } else {
             // unchecked false
-            let filtered = checkedNum.filter(num => (num !== intId));
-            setcheckedNum(filtered);
+            let filtered =  checkedArray.filter(num => (num !== intId));
+            setCheckedArray(filtered);
         }
     }; 
 
     const handleDeleteBtn = () => {
-        console.log(`checkedNum`, checkedNum);
-        const deleteData = checkedNum.map(num => {
+        console.log(` checkedArray`,  checkedArray);
+        const deleteData =  checkedArray.map(num => {
             return pageOfItems[num]
         });
         dispatch(deleteBanAction(deleteData));
         window.location.reload(true);
-        // setcheckedNum([]);
+        // setCheckedArray([]);
     };
 
     const handlePageClick = (e) => {
         let clickedNum = parseInt(e.target.innerHTML);
-        setpageNum(clickedNum);
+        setCurrentUrl(clickedNum);
     };
+
+    const handleWhatis = () => {
+        console.log('handlewhatis clicked')
+        setModalMessageShow(true);
+        setModalTitle(textObject.ban.title);
+        setModalContent1(textObject.ban.description1);
+        setModalContent2(textObject.ban.description2);
+    };
+
+    const handleMessageClose = () => {
+        setModalTitle('');
+        setModalContent1('');
+        setModalContent2('');
+        setModalMessageShow(false);
+    }
+
+    const handleTRClick = (e) => {
+        let intId = parseInt(e.target.parentNode.id);
+        let isChecked = checkedArray.includes(intId);
+        if(isChecked && !isNaN(intId)) {
+            //uncheck
+            let filtered = checkedArray.filter(el => el !== intId);
+            setCheckedArray(filtered);
+        } else if (!isChecked && !isNaN(intId)) {
+            //check
+            setCheckedArray([
+                ...checkedArray,
+                intId
+            ])
+        }
+    }
+
+    const pageChange = () => {
+        let urlSearchParams = new URLSearchParams(props.location.search);
+        let urlParams = parseInt(urlSearchParams.get('page')) || 1;
+        setCurrentUrl(urlParams);
+        setCheckedArray([]);
+    }
+
+    const getPageNum = () => {
+        let urlSearchParams = new URLSearchParams(props.location.search);
+        let urlParams = parseInt(urlSearchParams.get('page')) || 1;
+        return urlParams;
+    }
 
     let isToken = localStorage.getItem('token');
     if(!isToken) {
@@ -76,47 +130,70 @@ const Ban = (props) => {
                     description2 = {textObject.ban.description2} />
     } else if (pageOfItems.length == 0) {
         return <InitialEmpty
-                    title= {textObject.nointerest.title}
-                    description1 = {textObject.nointerest.description1}
-                    description2 = {textObject.nointerest.description2} />
+                    title= {textObject.ban.title}
+                    description1 = {textObject.ban.description1}
+                    description2 = {textObject.ban.description2} />
     }
  
     return(
         <>  
             <Layout />
-            <div>
-                <div>
-                    <table class="styled-table">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>종목코드</th>
-                                <th>종목명</th>
-                                <th>시가총액</th>
-                                <th>주가수익률</th>
-                                {/* <th>DividendYield</th> */}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {returnUtil(ban, returnBans)}
-                        </tbody>
-                    </table>
-                </div>
-                <div className="pages">
+            <div className="banContainer">
+                <div className="mainquestion" onClick={handleWhatis}>
+                    <span className="subtitle">ban목록은</span>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/11/Blue_question_mark_icon.svg" alt="" />
+                </div>    
+                <table class="styled-table">
+                    <thead>
+                        <tr>
+                            <th className="checkbox-hide"></th>
+                            <th>종목코드</th>
+                            <th>종목명</th>
+                            <th>시가총액</th>
+                            <th>주가수익률</th>
+                            {/* <th>DividendYield</th> */}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {returnUtil(ban, returnBans)}
+                    </tbody>
+                </table>
+                
+                <div className=" currentUrl">
                     <ul>
-                        {pager.pages.map(page => {
+                        <li className={ `${pager.currentPage === 1 ? 'disabled' : ''}`}>
+                            <Link to={{search: `?page=1`}} onClick={pageChange}>&laquo;</Link>
+                        </li> 
+                        <li className={ `${pager.currentPage === 1 ? 'disabled' : ''}`}>
+                            <Link to={{search: `?page=${pager.currentPage - 1}`}} onClick={pageChange}>&lt;</Link>
+                        </li>
+                        {pageOfItems ? pager.pages.map(num => {
                             return (
-                                <li key={page} onClick={handlePageClick}>{page}</li>
+                                <li key={num}>
+                                    <Link to={{search: `?page=${num}`}} onClick={pageChange} className={(num === getPageNum() ? 'active-pagenum' : 'pagenum')}>{num}</Link>
+                                </li>
                             )
-                        })}
+                        }) : <span>Pager undefined at News</span>}
+                        <li className={ `${pager.currentPage === pager.totalPages ? 'disabled' : ''}`}>
+                            <Link to={{search: `?page=${pager.currentPage + 1}`}} onClick={pageChange}>&gt;</Link>
+                        </li>
+                        <li className={ `${pager.currentPage === pager.totalPages ? 'disabled' : ''}`}>
+                            <Link to={{search: `?page=${pager.totalPages}`}} onClick={pageChange}>&raquo;</Link>
+                        </li>
                     </ul>
+                        {/* <ul>{returnPages()}</ul> */}
                 </div>
                 <div className="buttons">
-                    <button onClick={handleDeleteBtn}>
-                        Delete
-                    </button>
+                    <button onClick={handleDeleteBtn}>Delete</button>
                 </div>
             </div>
+            <ModalMessage
+                shown={modalMessageShow}
+                onCloseRequest={handleMessageClose}
+                modalTitle={modalTitle}
+                modalContent1={modalContent1}
+                modalContent2={modalContent2}
+            />
         </>
     )
 

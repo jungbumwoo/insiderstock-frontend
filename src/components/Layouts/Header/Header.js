@@ -8,7 +8,6 @@ const Header = () => {
     const username = sessionStorage.getItem("insk_un");
     
     const renderLoggedinbar = () => {
-        console.log(auth);
         return (
             <a href="/signout">signout</a>
         )

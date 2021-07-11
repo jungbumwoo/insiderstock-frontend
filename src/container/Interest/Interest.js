@@ -6,6 +6,7 @@ import InitialEmpty from "../InitialEmpty/InitialEmpty";
 import NeedLogin from "../NeedLogin/NeedLogin";
 import "./Interest.css";
 import { Link } from "react-router-dom";
+import { ModalMessage } from "../../components/Modals/ModalMessage/ModalMessage";
 import { useDispatch, useSelector } from "react-redux";
 import { returnUtil } from "../containerUtils";
 import { textObject } from "../../components/text/textObject";
@@ -15,12 +16,17 @@ const Interest = (props) => {
     const dispatch = useDispatch();
     const stock = useSelector(state => state.stock);
     const { pager, pageOfItems } = stock.pagedGetInt;
-    const [ curntUrl, setCurntUrl ] = useState(1);
     const [ checkedArray, setCheckedArray ] = useState([]);
-    const [ checkedNum, setCheckedNum ] = useState([]);
+    // const [ checkedNum, setCheckedNum ] = useState([]);
+
+    // For Modal
+    const [ modalMessageShow, setModalMessageShow ] = useState(false);
+    const [ modalTitle, setModalTitle ] = useState('');
+    const [ modalContent1, setModalContent1 ] = useState('');
+    const [ modalContent2, setModalContent2 ] = useState('');
 
     // Pagination
-    const [ currentUrl, setCurrentUrl ] = useState('');
+    const [ currentUrl, setCurrentUrl ] = useState(1);
 
     useEffect(() => {
         let urlSearchParams = new URLSearchParams(props.location.search);
@@ -39,7 +45,7 @@ const Interest = (props) => {
 
     const handlePageClick = (e) => {
         let targetNum = e.target.innerHTML;
-        setCurntUrl(parseInt(targetNum));
+        setCurrentUrl(parseInt(targetNum));
         setCheckedArray([]);
     }; 
 
@@ -69,7 +75,7 @@ const Interest = (props) => {
     const returnPageOfItems = () => {
         let result = pageOfItems.map(trs => {
             return (
-                <tr>
+                <tr onClick={handleTRClick} className={checkedArray.includes(parseInt(pageOfItems.indexOf(trs))) ? 'checked-tr' : 'unchecked-tr'} id={parseInt(pageOfItems.indexOf(trs))} key={pageOfItems.indexOf(trs)}>
                     <td className="checkbox-hide"><input type="checkbox" onChange={checkBoxChange} id={parseInt(pageOfItems.indexOf(trs))} checked={checkedArray.includes(pageOfItems.indexOf(trs))} name="chk" /></td>
                     <td><a href={`https://www.gurufocus.com/stock/${trs.ticker}/insider`} target='_blank' rel="noreferrer">{trs.ticker}</a></td>
                     <td><a href={`https://www.google.com/search?q=${trs.company}`} target='_blank' rel="noreferrer">{trs.company}</a></td>
@@ -111,20 +117,47 @@ const Interest = (props) => {
     };
 
     const handleWhatis = () => {
-        console.log("handleWhatis")
+        console.log('handlewhatis clicked')
+        setModalMessageShow(true);
+        setModalTitle(textObject.interest.title);
+        setModalContent1(textObject.interest.description1);
+        setModalContent2(textObject.interest.description2);
     };
+
+    const handleMessageClose = () => {
+        setModalTitle('');
+        setModalContent1('');
+        setModalContent2('');
+        setModalMessageShow(false);
+    }
 
     const pageChange = () => {
         let urlSearchParams = new URLSearchParams(props.location.search);
         let urlParams = parseInt(urlSearchParams.get('page')) || 1;
         setCurrentUrl(urlParams);
-        setCheckedNum([]);
+        setCheckedArray([]);
     }
 
     const getPageNum = () => {
         let urlSearchParams = new URLSearchParams(props.location.search);
         let urlParams = parseInt(urlSearchParams.get('page')) || 1;
         return urlParams;
+    }
+
+    const handleTRClick = (e) => {
+        let intId = parseInt(e.target.parentNode.id);
+        let isChecked = checkedArray.includes(intId);
+        if(isChecked && !isNaN(intId)) {
+            //uncheck
+            let filtered = checkedArray.filter(el => el !== intId);
+            setCheckedArray(filtered);
+        } else if (!isChecked && !isNaN(intId)) {
+            //check
+            setCheckedArray([
+                ...checkedArray,
+                intId
+            ])
+        }
     }
     
     let isToken = localStorage.getItem('token');
@@ -200,6 +233,13 @@ const Interest = (props) => {
                         <button onClick={hadnleDeleteBtn}>Delete</button>
                     </div>
                 </div>
+                <ModalMessage
+                    shown={modalMessageShow}
+                    onCloseRequest={handleMessageClose}
+                    modalTitle={modalTitle}
+                    modalContent1={modalContent1}
+                    modalContent2={modalContent2}
+                />
             </>
         )
     }

@@ -4,8 +4,13 @@ import { notInterestDeleteAct } from "../../actions";
 import { returnUtil } from "../containerUtils.js";
 import { textObject } from "../../components/text/textObject.js";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { ModalMessage } from "../../components/Modals/ModalMessage/ModalMessage";
 import NeedLogin from "../NeedLogin/NeedLogin";
 import InitialEmpty from "../InitialEmpty/InitialEmpty";
+import Layout from "../../components/Layouts/Layout/Layout";
+
+import "./NotInterest.css"
 
 const NotInterest = (props) => {
     const dispatch = useDispatch();
@@ -13,10 +18,19 @@ const NotInterest = (props) => {
     const { pager, pageOfItems } = notinterest.pagedNotInt;
     const [ checkedArray, setCheckedArray ] = useState([]);
     const [ curntUrl, setCurntUrl ] = useState(1);
+
+    // For Modal
+    const [ modalMessageShow, setModalMessageShow ] = useState(false);
+    const [ modalTitle, setModalTitle ] = useState('');
+    const [ modalContent1, setModalContent1 ] = useState('');
+    const [ modalContent2, setModalContent2 ] = useState('');
+
+    // Pagination
+    const [ currentUrl, setCurrentUrl ] = useState(1);
     
     useEffect(() => {
-        dispatch(getNotInterestAction(curntUrl));
-    }, [curntUrl]);
+        dispatch(getNotInterestAction(currentUrl));
+    }, [currentUrl]);
     
     const checkBoxChange = (e) => {
         let intId = parseInt(e.target.id);
@@ -34,7 +48,7 @@ const NotInterest = (props) => {
     };
 
     const handlePageBtn = (e) => {
-        setCurntUrl(e.target.innerHTML);
+        setCurrentUrl(e.target.innerHTML);
     };
 
     const handleDeleteBtn = () => {
@@ -66,69 +80,136 @@ const NotInterest = (props) => {
     }
 
     const returnNotInt = () => {
-        let result = pageOfItems.map((item) => {
+        let result = pageOfItems.map((trs) => {
             return (
-                <tr key={pageOfItems.indexOf(item)}>
-                    <th><input type="checkbox" id={pageOfItems.indexOf(item)} name="chk" onChange={checkBoxChange} /></th>
-                    <th>{item.ticker}</th>
-                    <th>{item.company}</th>
-                    <th>{item.insiderName}</th>
-                    <th>{item.date}</th>
-                    <th>{item.MarketCap}</th>
+                <tr onClick={handleTRClick} className={checkedArray.includes(parseInt(pageOfItems.indexOf(trs))) ? 'checked-tr' : 'unchecked-tr'} id={parseInt(pageOfItems.indexOf(trs))} key={pageOfItems.indexOf(trs)}>
+                    <td className="checkbox-hide"><input type="checkbox" id={pageOfItems.indexOf(trs)} name="chk" onChange={checkBoxChange} /></td>
+                    <td>{trs.ticker}</td>
+                    <td>{trs.company}</td>
+                    <td>{trs.insiderName}</td>
+                    <td>{trs.date}</td>
+                    <td>{trs.MarketCap}</td>
                 </tr>
             )
         })
         return result;
     }
 
+    const handleWhatis = () => {
+        console.log('handlewhatis clicked')
+        setModalMessageShow(true);
+        setModalTitle(textObject.notinterest.title);
+        setModalContent1(textObject.notinterest.description1);
+        setModalContent2(textObject.notinterest.description2);
+    };
+
+    const handleMessageClose = () => {
+        setModalTitle('');
+        setModalContent1('');
+        setModalContent2('');
+        setModalMessageShow(false);
+    }
+
+    const handleTRClick = (e) => {
+        let intId = parseInt(e.target.parentNode.id);
+        let isChecked = checkedArray.includes(intId);
+        if(isChecked && !isNaN(intId)) {
+            //uncheck
+            let filtered = checkedArray.filter(el => el !== intId);
+            setCheckedArray(filtered);
+        } else if (!isChecked && !isNaN(intId)) {
+            //check
+            setCheckedArray([
+                ...checkedArray,
+                intId
+            ])
+        }
+    }
+
+    const pageChange = () => {
+        let urlSearchParams = new URLSearchParams(props.location.search);
+        let urlParams = parseInt(urlSearchParams.get('page')) || 1;
+        setCurrentUrl(urlParams);
+        setCheckedArray([]);
+    }
+
+    const getPageNum = () => {
+        let urlSearchParams = new URLSearchParams(props.location.search);
+        let urlParams = parseInt(urlSearchParams.get('page')) || 1;
+        return urlParams;
+    }
+
     let isToken = localStorage.getItem('token');
     if(!isToken) {
         return <NeedLogin 
-                    title= {textObject.nointerest.title}
-                    description1 = {textObject.nointerest.description1}
-                    description2 = {textObject.nointerest.description2} />
+                    title= {textObject.notinterest.title}
+                    description1 = {textObject.notinterest.description1}
+                    description2 = {textObject.notinterest.description2} />
     } else if (pageOfItems.length == 0) {
         return <InitialEmpty
-                    title= {textObject.nointerest.title}
-                    description1 = {textObject.nointerest.description1}
-                    description2 = {textObject.nointerest.description2} />
+                    title= {textObject.notinterest.title}
+                    description1 = {textObject.notinterest.description1}
+                    description2 = {textObject.notinterest.description2} />
     }
 
     return (
         <>
-            <div>NotInterest</div>
-            <div>
-                <div className="data_tables">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>종목코드</th>
-                                <th>종목명</th>
-                                <th>거래자</th>
-                                <th>일자</th>
-                                <th>시가총액</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {returnUtil(notinterest, returnNotInt)}
-                        </tbody>
-                    </table>
-                </div>
-                <div className="pages_buttons">
+            <Layout />
+            <div className="notinterestContainer">
+                <div className="mainquestion" onClick={handleWhatis}>
+                    <span className="subtitle">노관심목록은</span>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/11/Blue_question_mark_icon.svg" alt="" />
+                </div>    
+                <table>
+                    <thead>
+                        <tr>
+                            <th className="checkbox-hide"></th>
+                            <th>종목코드</th>
+                            <th>종목명</th>
+                            <th>거래자</th>
+                            <th>일자</th>
+                            <th>시가총액</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {returnUtil(notinterest, returnNotInt)}
+                    </tbody>
+                </table>
+                <div className="pageNum">
                     <ul>
-                        {pager.pages.map(element => {
-                           return (
-                           <li onClick={handlePageBtn}>
-                            <span>{element}</span>
-                           </li>
-                           )
-                        })}
+                        <li className={ `${pager.currentPage === 1 ? 'disabled' : ''}`}>
+                            <Link to={{search: `?page=1`}} onClick={pageChange}>&laquo;</Link>
+                        </li> 
+                        <li className={ `${pager.currentPage === 1 ? 'disabled' : ''}`}>
+                            <Link to={{search: `?page=${pager.currentPage - 1}`}} onClick={pageChange}>&lt;</Link>
+                        </li>
+                        {pageOfItems ? pager.pages.map(num => {
+                            return (
+                                <li key={num}>
+                                    <Link to={{search: `?page=${num}`}} onClick={pageChange} className={(num === getPageNum() ? 'active-pagenum' : 'pagenum')}>{num}</Link>
+                                </li>
+                            )
+                        }) : <span>Pager undefined at News</span>}
+                        <li className={ `${pager.currentPage === pager.totalPages ? 'disabled' : ''}`}>
+                            <Link to={{search: `?page=${pager.currentPage + 1}`}} onClick={pageChange}>&gt;</Link>
+                        </li>
+                        <li className={ `${pager.currentPage === pager.totalPages ? 'disabled' : ''}`}>
+                            <Link to={{search: `?page=${pager.totalPages}`}} onClick={pageChange}>&raquo;</Link>
+                        </li>
                     </ul>
+                        {/* <ul>{returnPages()}</ul> */}
                 </div>
-                <button onClick={handleDeleteBtn} variant="dark" size="sm">Delete</button>
+                <div className="buttons">
+                    <button onClick={handleDeleteBtn}>Delete</button>
+                </div>
             </div>
-            
+            <ModalMessage
+                shown={modalMessageShow}
+                onCloseRequest={handleMessageClose}
+                modalTitle={modalTitle}
+                modalContent1={modalContent1}
+                modalContent2={modalContent2}
+            />
         </>
     );
 }

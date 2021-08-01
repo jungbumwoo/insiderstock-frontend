@@ -61,7 +61,7 @@
 
 /* Pagination */
 
-.pageNum {
+.notinterestContainer .pageNum {
     display: flex;
     justify-content: center;
     width: 100%;
@@ -70,23 +70,23 @@
     margin-bottom: 1em;
 }
 
-.pageNum ul li {
+.notinterestContainer .pageNum ul li {
     display: inline-flex;
     padding: 0.5em 0.3em;
 }
 
-.pageNum ul li a{
+.notinterestContainer .pageNum ul li a{
     padding: 0.6em 1em;
     text-decoration: none;
     font-size: 1em;
     border: 1px solid #ccc;
 }
 
-.pageNum ul .active-pagenum {
+.notinterestContainer .pageNum ul .active-pagenum {
     background-color: #00d2ff;
 }
 
-.pageNum ul li .active-pagenum {
+.notinterestContainer .pageNum ul li .active-pagenum {
     color: #eee;
     text-decoration: none;
 }
